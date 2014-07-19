@@ -1,31 +1,31 @@
-log4j��ʹ��
+log4j��ʹ��
 
-log4j�����ã�log4j��������ϵͳ�д�ӡ��־�ģ�log4j��һ����Դ��ϵͳ�����Ա�������ϵͳ��Ϊjar��ʹ�á�
-
-
-log4j��Ϊ��Ҫ�������֣�logger����־д��������appender(��־д����Ŀ�ĵ�)��layout(��־�����ʽ�Ķ���)
+log4j�����ã�log4j��������ϵͳ�д�ӡ��־�ģ�log4j��һ����Դ��ϵͳ�����Ա�������ϵͳ��Ϊjar��ʹ�á�
 
 
-log4J���������÷�ʽ��xml���á�������,�������£�
+log4j��Ϊ��Ҫ�������֣�logger����־д��������appender(��־д����Ŀ�ĵ�)��layout(��־������ʽ�Ķ���)
 
-�������ã�
 
-#���ü���
+log4J���������÷�ʽ��xml���á�������,�������£�
+
+�������ã�
+
+#���ü�����
 log4j.rootLogger=debug,appender1
 
-#�������(����Ĭ��Ϊ׷�ӷ�ʽ)
+#��������(����Ĭ��Ϊ׷�ӷ�ʽ)
 log4j.appender.appender1=org.apache.log4j.FileAppender
-#���ü����·��
-#��1������
+#���ü�����·��
+#��1������
 #log4j.appender.appender1.File=c:/Log4JDemo02.log
-#��2��HTML��
+#��2��HTML��
 log4j.appender.appender1.File=c:/Log4JDemo02.html
-#���ü������ʽ
+#���ü�������ʽ
 #log4j.appender.appender1.layout=org.apache.log4j.TTCCLayout
 log4j.appender.appender1.layout=org.apache.log4j.HTMLLayout
 
 
-xml����
+xml����
 
 <appender name="PROJECT" class="org.apache.log4j.DailyRollingFileAppender">
 	<param name="file" value="${topcontainer.loggingRoot}/top-container.log" />
@@ -41,4 +41,14 @@ xml����
 </root>
 
 
-
+<logger>标签的作用：为不同的包使用不同的log配置。
+如配置了 
+<logger name="com.runway" additivity="false"> 
+        <priority value ="info"/>    
+        <appender-ref ref="activexAppender" />    
+</logger> 
+则com.runway包及其子包下的所有类使用的log配置都是info,且输出到activeXAppender.
+其他类使用的log配置都是根logger
+logger的默认配置具有继承特性， 即所有的logger配置继承根logger,
+name为“a.b.c"的logger配置继承name为"a.b"的配置, name为"a.b"又继承name为"a"的logger而配置。。。
+若使用了additivity="false"表示不继承父logger的配置。
