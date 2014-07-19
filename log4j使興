@@ -1,0 +1,44 @@
+log4j的使用
+
+log4j的作用：log4j是用来在系统中打印日志的，log4j是一个开源的系统，可以被其他的系统作为jar包使用。
+
+
+log4j分为重要的三部分：logger（日志写出器）、appender(日志写出的目的地)、layout(日志输出格式的定义)
+
+
+log4J有两种配置方式：xml配置、件配置,例子如下：
+
+属性配置：
+
+#设置级别：
+log4j.rootLogger=debug,appender1
+
+#输出到件(这里默认为追加方式)
+log4j.appender.appender1=org.apache.log4j.FileAppender
+#设置件输出路径
+#【1】本件
+#log4j.appender.appender1.File=c:/Log4JDemo02.log
+#【2】HTML件
+log4j.appender.appender1.File=c:/Log4JDemo02.html
+#设置件输出样式
+#log4j.appender.appender1.layout=org.apache.log4j.TTCCLayout
+log4j.appender.appender1.layout=org.apache.log4j.HTMLLayout
+
+
+xml配置
+
+<appender name="PROJECT" class="org.apache.log4j.DailyRollingFileAppender">
+	<param name="file" value="${topcontainer.loggingRoot}/top-container.log" />
+	<param name="append" value="true" />
+	<param name="encoding" value="UTF-8" />
+	<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%d %p [%c{3}:%L] - %m%n" />
+	</layout>
+</appender>
+<root>
+	<level value="${topcontainer.loggingLevel}" />
+	<appender-ref ref="PROJECT" />
+</root>
+
+
+
